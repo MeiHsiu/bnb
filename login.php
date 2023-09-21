@@ -10,9 +10,12 @@
 
 <body>
     <?php
-        include "checksession.php";
 
-     
+    include "header.php";
+    include "menu.php";
+    echo '<div id="site_content">';
+    include "sidebar.php";
+    echo '<div id="content">';
                  
         //simple logout
         if (isset($_POST['logout'])) logout();
@@ -82,6 +85,11 @@
 
 
     </form>
+<?php
+    echo '</div></div>';
+    include "footer.php";
+?>
+
 
 </body>
 

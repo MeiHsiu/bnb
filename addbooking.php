@@ -6,14 +6,20 @@
         rel="stylesheet"
         href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
         />
-        <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
-        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
     </head>
  <body>
 
 <?php
+include "ChromePhp.php";
+
+include "checksession.php";
+include "header.php";
+include "menu.php";
+echo '<div id="site_content">';
+include "sidebar.php";
+echo '<div id="content">';
+
 //function to clean input but not validate type and content
 function cleanInput($data) {  
   return htmlspecialchars(stripslashes(trim($data)));
@@ -58,6 +64,14 @@ if (isset($_POST['submit']) and !empty($_POST['submit']) and ($_POST['submit'] =
         $query = "INSERT INTO booking (roomid,customerid,checkindate,checkoutdate,contactnumber,bookingextras) VALUES (?,?,?,?,?,?)";
         $stmt = mysqli_prepare($DBC,$query); //prepare the query
         mysqli_stmt_bind_param($stmt,'iissss', $roomID, $customerID, $checkindate, $checkoutdate,$contactnumber,$bookingextras); 
+
+        ChromePhp::log($roomID);
+        ChromePhp::log($customerID);
+        ChromePhp::log($checkindate);
+        ChromePhp::log($checkoutdate);
+        ChromePhp::log($contactnumber);
+        ChromePhp::log($bookingextras);
+
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);    
         echo "<h2>New booking added to the list</h2>";        
@@ -98,15 +112,15 @@ mysqli_close($DBC); //close the connection once done
   </p> 
   <p>
     <label for="checkindate">Checkin Date: </label>
-    <input type="text" id="checkindate" name="checkindate" value="" require >
+    <input type="text" id="checkindate" name="checkindate" required placeholder="Checkin Date">
   </p>  
   <p>  
     <label for="checkoutdate">Checkout Date: </label>
-    <input type="text" id="checkoutdate" name="checkoutdate" value="" require >
+    <input type="text" id="checkoutdate" name="checkoutdate" required placeholder="Checkout Date">
    </p>
    <p>
     <label for="contactnumber">Contact number: </label>
-    <input type="tel" id="contactnumber" name="contactnumber" value="" required placeholder="(001) 123-1234" pattern="[\(]\d{3}[\)] \d{3}-\d{4}"> 
+    <input type="tel" id="contactnumber" name="contactnumber" required placeholder="(001) 123-1234" pattern="[\(]\d{3}[\)] \d{3}-\d{4}"> 
   </p>  
   <p>
     <label for="bookingextras">Booking Extras: </label>
@@ -121,10 +135,9 @@ mysqli_close($DBC); //close the connection once done
    <hr>
    <h2>Search for room availability</h2>
    <p>
-    <label for="fromDate">Start Date: </label>
-    <input type="text" id="fromDate" name="sqa" value="" require >
-    <label for="toDate">End Date: </label>
-    <input type="text" id="toDate" name="sqb" value="" require >
+
+   <input type="text" id="fromDate" name="sqa" required placeholder="From Date">
+   <input type="text" id="toDate" name="sqb" required placeholder="To Date">
     <input type="submit" name="search" id="search" value="Search availability">
 
     <table id="result" border ="1"></table>

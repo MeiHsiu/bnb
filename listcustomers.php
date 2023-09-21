@@ -54,9 +54,22 @@ function searchResult(searchstr) {
 </script>
 </head>
 <body>
+<?php
+
+    include "checksession.php";
+    include "header.php";
+    include "menu.php";
+    echo '<div id="site_content">';
+    include "sidebar.php";
+    echo '<div id="content">';
+?> 
 
 <h1>Customer List Search by Lastname</h1>
-<h2><a href='registercustomer.php'>[Create new Customer]</a><a href="/bnb/">[Return to main page]</a>
+<h2>
+  <?php  if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']  ==1){?>
+  <a href='registercustomer.php'>[Create new Customer]</a>
+  <?php } ?>
+  <a href="/bnb/">[Return to main page]</a>
 </h2>
 <form>
   <label for="lastname">Lastname: </label>
@@ -96,6 +109,10 @@ include "checksession.php";
         }
         ?>
 
+<?php
+    echo '</div></div>';
+    include "footer.php";
+?>
 </body>
 </html>
   

@@ -3,7 +3,15 @@
  <body>
 
 <?php
-include "config.php"; //load in any variables
+
+    include "checksession.php";
+    include "header.php";
+    include "menu.php";
+    echo '<div id="site_content">';
+    include "sidebar.php";
+    echo '<div id="content">';
+    
+    include "config.php"; //load in any variables
 $DBC = mysqli_connect(SERVERNAME, DBUSER, DBPASSWORD, DBDATABASE);
 
 //insert DB code from here onwards
@@ -21,7 +29,12 @@ $result = mysqli_query($DBC,$query);
 $rowcount = mysqli_num_rows($result); 
 ?>
 <h1>Cruuent bookings</h1>
-<h2><a href='addbooking.php'>[Make a booking]</a><a href="/bnb/">[Return to main page]</a></h2>
+<h2>
+  <?php  if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']  ==1){?>
+  <a href='addbooking.php'>[Make a booking]</a>
+  <?php } ?>
+  <a href="/bnb/">[Return to main page]</a>
+</h2>
 <table border="1">
 <thead><tr><th>Booking (room, dates)</th><th>Customer</th><th>Action</th></tr></thead>
 <?php
@@ -68,6 +81,10 @@ include "checksession.php";
         }
         ?>
 
+<?php
+    echo '</div></div>';
+    include "footer.php";
+?>
 
 </body>
 </html>

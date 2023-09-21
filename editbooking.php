@@ -6,13 +6,18 @@
       rel="stylesheet"
       href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
     />
-    <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
    </head>
  <body>
 
 <?php
+
+include "checksession.php";
+include "header.php";
+include "menu.php";
+echo '<div id="site_content">';
+include "sidebar.php";
+echo '<div id="content">';
+
 include "config.php"; //load in any variables
 $DBC = mysqli_connect(SERVERNAME, DBUSER, DBPASSWORD, DBDATABASE);
 
@@ -99,7 +104,6 @@ if ($rowcount > 0) {
 ?>
 <h1>Edit a booking</h1>
 <h2><a href='listbookings.php'>[Return to the booking listing]</a><a href='/bnb/'>[Return to the main page]</a></h2>
-<h2>Booking made for Test</h2>
 
 <form method="POST" action="editbooking.php">
   <input type="hidden" name="id" value="<?php echo $id;?>">
@@ -153,6 +157,12 @@ if ($rowcount > 0) {
 mysqli_close($DBC); //close the connection once done
 ?>
 </body>
+
+<?php
+    echo '</div></div>';
+    include "footer.php";
+?>
+
 
 <script>
     $("#checkindate").datepicker({

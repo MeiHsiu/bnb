@@ -1,14 +1,22 @@
 <!DOCTYPE HTML>
 <?php
- include "checksession.php";
- checkUser();
- loginStatus(); 
+ //include "checksession.php";
+ //checkUser();
+ //loginStatus(); 
 ?>
 <html><head><title>View Room</title> </head>
  <body>
 
 <?php
-include "config.php"; //load in any variables
+
+    include "checksession.php";
+    include "header.php";
+    include "menu.php";
+    echo '<div id="site_content">';
+    include "sidebar.php";
+    echo '<div id="content">';
+
+    include "config.php"; //load in any variables
 $DBC = mysqli_connect(SERVERNAME, DBUSER, DBPASSWORD, DBDATABASE);
 
 //insert DB code from here onwards
@@ -51,6 +59,12 @@ mysqli_free_result($result); //free any memory used by the query
 mysqli_close($DBC); //close the connection once done
 ?>
 </table>
+
+<?php
+    echo '</div></div>';
+    include "footer.php";
+?>
+
 </body>
 </html>
   

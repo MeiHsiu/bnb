@@ -1,4 +1,5 @@
 <?php
+include "ChromePhp.php";
 // Database connection settings
 include "config.php"; //load in any variables
 
@@ -11,6 +12,9 @@ if ($conn->connect_error) {
 // Get the from date and to date from the query string
 $fromDate = date_format(date_create($_POST['sqa']),"Y-m-d");
 $toDate = date_format(date_create($_POST['sqb']),"Y-m-d");
+
+ChromePhp::log($fromDate);
+ChromePhp::log($toDate);
 
 $searchresult ='';
 if(true){
@@ -28,6 +32,9 @@ if($rowcount > 0){
     while ($row = mysqli_fetch_assoc($result)){
         $rows[]= $row;
     }
+
+    ChromePhp::log($rows);
+
     //take the array of our 1 or more bookings and turn it into a JSON text
     $searchresult = json_encode($rows);
 

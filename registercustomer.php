@@ -3,6 +3,14 @@
  <body>
 
 <?php
+
+include "checksession.php";
+include "header.php";
+include "menu.php";
+echo '<div id="site_content">';
+include "sidebar.php";
+echo '<div id="content">';
+
 //function to clean input but not validate type and content
 function cleanInput($data) {  
   return htmlspecialchars(stripslashes(trim($data)));
@@ -56,7 +64,12 @@ if (isset($_POST['submit']) and !empty($_POST['submit']) and ($_POST['submit'] =
 }
 ?>
 <h1>New Customer Registration</h1>
-<h2><a href='listcustomers.php'>[Return to the Customer listing]</a><a href='/bnb/'>[Return to the main page]</a></h2>
+<h2>
+<?php  if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']  ==1){?>
+  <a href='listcustomers.php'>[Return to the Customer listing]</a>
+  <?php } ?>
+  <a href='/bnb/'>[Return to the main page]</a>
+</h2>
 
 <form method="POST" action="registercustomer.php">
   <p>
@@ -78,6 +91,12 @@ if (isset($_POST['submit']) and !empty($_POST['submit']) and ($_POST['submit'] =
   
    <input type="submit" name="submit" value="Register">
  </form>
+
+ <?php
+echo '</div></div>';
+include "footer.php";
+?>
+
 </body>
 </html>
   
